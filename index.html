@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <select name="Name" onchange="searchName(this.value,'events')">
+        <option value="">select one</option>
+        <option value="england-and-wales">England and Wales</option>
+        <option value="scotland">Scotland</option>
+        <option value="northern-ireland">Northern Ireland</option>
+    </select>
+    
+    <input type="date" value="2017-01-02" 
+        placeholder="yyyy-mm-dd" value=""
+        min="2017-01-02" max="2023-12-31">
+   
+
+
+<table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Event</th>
+        <th>Note</th>
+      </tr>
+    </thead>
+        <tbody id="body">
+            
+        </tbody>
+    </table>
+
+    <script>
+     
+
+
+
+    function searchName(searchValue,property){
+
+        if(searchValue==="scotland" ){
+                fetch("https://www.gov.uk/bank-holidays.json")
+        .then((response)=>response.json())
+        .then((dates)=>{
+            let country = dates['scotland'];
+            for(i=0;i<country.length;i++){
+                console.log(country[i].division)
+            }
+            console.log(country.division)
+            let country1 = country.events;
+            let dateString = '';
+            country1.forEach((users,index)=>{
+            
+            const {date,title,notes} = users;
+            dateString += `
+                <tr>
+                  <td>${date}</td> 
+                  <td>${title}</td> 
+                  <td>${notes}</td>   
+                </tr>
+            `;
+                
+            })
+            document.getElementById('body').innerHTML = dateString;
+            
+            
+            
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+
+    
+
+    }
+    else if(searchValue==="england-and-wales"){
+                fetch("https://www.gov.uk/bank-holidays.json")
+        .then((response)=>response.json())
+        .then((dates)=>{
+            let country = dates['england-and-wales'];
+            for(i=0;i<country.length;i++){
+                console.log(country[i].division)
+            }
+            console.log(country.division)
+            let country1 = country.events;
+            let dateString = '';
+
+            country1.forEach((users,index)=>{
+                const {date,title,notes} = users;
+            
+
+                dateString += `
+                    <tr>
+                      <td>${date}</td>
+                      <td>${title}</td> 
+                      <td>${notes}</td>   
+                    </tr>
+                `;
+                
+            })
+            document.getElementById('body').innerHTML = dateString;
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+
+        
+    }
+    else if(searchValue==="northern-ireland"){
+        fetch("https://www.gov.uk/bank-holidays.json")
+        .then((response)=>response.json())
+        .then((dates)=>{
+            let country = dates['northern-ireland'];
+            for(i=0;i<country.length;i++){
+                console.log(country[i].division)
+            }
+            console.log(country.division)
+            let country1 = country.events;
+            let dateString = '';
+
+            country1.forEach((users,index)=>{
+                const {date,title,notes} = users;
+            
+
+                dateString += `
+                    <tr>
+                      <td>${date}</td>
+                      <td>${title}</td> 
+                      <td>${notes}</td>   
+                    </tr>
+                `;
+                
+            })
+            document.getElementById('body').innerHTML = dateString;
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+
+    }
+    else{
+        document.getElementById('body').innerHTML = " ";
+    }
+        }
+
+        
+            
+    // function searchDate(dateValue,property){
+    //     fetch("https://www.gov.uk/bank-holidays.json")
+    //     .then((response)=>response.json())
+    //     .then((dates)=>{
+    //         console.log(dates)
+    //     })
+    //     .catch((err)=>{
+    //         console.log(err)
+    //     })
+    // }
+           
+                 
+                
+        
+    </script>
+</body>
+</html>
